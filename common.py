@@ -7,7 +7,7 @@ from pathlib import Path
 from types import SimpleNamespace
 
 import pandas as pd
-from sklearn.ensemble import HistGradientBoostingClassifier, RandomForestClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import PredefinedSplit
 from sklearn.pipeline import make_pipeline
@@ -40,7 +40,7 @@ def load():
     )
 
 
-# The three frozen models (unfitted). Fit them on d.X_train, d.y_train.
+# The two frozen models (unfitted). Fit them on d.X_train, d.y_train.
 
 def logistic_regression():
     """Simple: logistic regression on scaled features."""
@@ -48,17 +48,11 @@ def logistic_regression():
 
 
 def random_forest():
-    """Complex, option 1: many independent trees that vote."""
+    """Complex: many decision trees that vote."""
     return RandomForestClassifier(n_estimators=300, min_samples_leaf=5, random_state=42, n_jobs=-1)
-
-
-def gradient_boosting():
-    """Complex, option 2: trees built one after another, each fixing the last one's mistakes."""
-    return HistGradientBoostingClassifier(random_state=42)
 
 
 MODELS = {
     "logistic_regression": logistic_regression,
     "random_forest": random_forest,
-    "gradient_boosting": gradient_boosting,
 }
