@@ -1,7 +1,7 @@
 """Shared setup for every section notebook.
 
 Frozen on Nov 20: don't edit this file or clean_songs.csv. If something looks
-wrong, tell the Producer instead of changing it, so everyone keeps the same data.
+off, post in the group chat instead of changing it, so everyone keeps the same data.
 """
 from pathlib import Path
 from types import SimpleNamespace
