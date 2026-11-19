@@ -12,21 +12,22 @@ from sklearn.model_selection import PredefinedSplit
 
 ROOT = Path(__file__).resolve().parent
 
+GENRES = ["electronic", "hiphop/rnb", "latin", "pop", "rock"]
+
 FEATURES = ["duration_ms", "explicit", "danceability", "energy", "key", "loudness", "mode",
             "speechiness", "acousticness", "instrumentalness", "liveness", "valence", "tempo",
             "time_signature"]
 
 
 def load():
-    """Load the frozen data.
+    """Load the frozen data. The target is the song's parent genre.
 
     d.songs    one row per unique song, with `split` (train/test) and `fold` (0-4, train rows only)
     d.X_train, d.y_train, d.X_test, d.y_test
     d.cv       the shared 5-fold cross-validation splitter (folds grouped by artist)
     """
     songs = pd.read_csv(ROOT / "clean_songs.csv")
-    X = pd.get_dummies(songs[FEATURES + ["broad_genre"]], columns=["broad_genre"])
-    y = songs["failure"]
+    X, y = songs[FEATURES], songs["broad_genre"]
     train = songs["split"] == "train"
     return SimpleNamespace(
         songs=songs,
